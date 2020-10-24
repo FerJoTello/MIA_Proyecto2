@@ -1,7 +1,10 @@
 const express = require('express');
+const { request } = require('http');
 const oracledb = require('oracledb');
 const app = express();
-let connection;
+var connection;
+var cors = require('cors');
+app.use(cors());
 
 // revisa si es posible la conexion y se almacena la variable en connection
 async function checkConnection() {
@@ -32,6 +35,12 @@ checkConnection();
 
 //  Estableciendo puertos
 app.set('port', process.env.PORT || 3000);
+const morgan = require('morgan');
+app.use(morgan('dev'));
+//  Utilizados para comunicarse con el cliente 
+//  por medio de json's y poder leerlos.
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 app.listen(app.get('port'), () => {
     console.log(`Backend inicializado en el puerto ${app.get('port')}`);
@@ -42,10 +51,25 @@ app.get('/', (req, res) => {
     res.send('Hello');
 });
 
-async function prueba(req, res){
+async function prueba(req, res) {
     result = await connection.execute(`SELECT * FROM TIPO_USUARIO`);
     return res.send(result.rows);
 }
 app.get('/prueba', (req, res) => {
-    prueba(req,res)
+    prueba(req, res)
 });
+
+app.post('/login', (req, res) => {
+    try{
+        login(req, res)
+    } catch(err){
+        return res.send(err.message);
+    }
+});
+async function login(req, res) {
+    let email = req.body.email;
+    let pass = req.body.password;
+    let query = `SELECT * FROM USUARIO WHERE correo_electronico = '${email}' AND contrasena = '${pass}'`;
+    result = await connection.execute(query);
+    return res.send(result.rows[0]);
+}

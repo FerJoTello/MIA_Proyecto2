@@ -18,6 +18,8 @@ CREATE TABLE USUARIO(
     tipo REFERENCES TIPO_USUARIO(id_tipo)
 );
 
+INSERT INTO USUARIO(correo_electronico, contrasena, nombre, apellido, fecha_nac, pais, tipo) VALUES('ferjo','123','Fernando','Tello',DATE '2001-03-04','GT',1);
+SELECT * FROM USUARIO;
 CREATE TABLE OPERACION(
     id_operacion INT GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) PRIMARY KEY NOT NULL,
     cliente REFERENCES USUARIO(correo_electronico),
