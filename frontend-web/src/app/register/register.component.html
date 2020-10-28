@@ -1,38 +1,44 @@
-<p>register is working!</p>
 <div class="container">
     <h5 style="text-align:center">Registrate</h5>
     <div class="card">
         <div class="card-body">
-            <form >
+            <form [formGroup]="registerForm" (ngSubmit)="submitRegister()">
                 <div class="form-group">
-                    <label for="inputName">Nombre</label>
+                    <label for="firstName">Nombre</label>
                     <input type="text" class="form-control" id="inputName">
                 </div>
                 <div class="form-group">
-                    <label for="inputLastNane">Apellido</label>
+                    <label for="lastName">Apellido</label>
                     <input type="text" class="form-control" id="inputLastNane">
                 </div>
                 <div class="form-group">
-                    <label for="inputEmail">Correo Electrónico</label>
+                    <label for="email">Correo Electrónico</label>
                     <input type="email" class="form-control" id="inputEmail">
                 </div>
                 <div class="form-group">
-                    <label for="inputDate">Fecha Nacimiento</label>
+                    <label for="country">Pais</label>
+                    <input type="text" class="form-control" id="inputCountry">
+                </div>
+                <div class="form-group">
+                    <label for="birthDate">Fecha Nacimiento</label>
                     <input type="date" class="form-control" id="inputDate">
                 </div>
                 <div class="form-group">
-                    <label for="inputPassword1">Contraseña</label>
+                    <label for="password1">Contraseña</label>
                     <input type="password" class="form-control" id="inputPassword1">
                 </div>
                 <div class="form-group">
-                    <label for="inputPassword2">Confirmar Contraseña</label>
+                    <label for="password2">Confirmar Contraseña</label>
                     <input type="password" class="form-control" id="inputPassword2">
                 </div>
                 <div class="form-group">
-                    <label for="inputDate">Subir Foto</label>
+                    <label for="imgFile">Subir Foto</label>
                     <input type="file" class="form-control" id="inputFile">
                 </div>
-                <button type="button" class="btn btn-primary">Registrar</button>
+                <div class="col-sm-6">
+                    <app-alert></app-alert>
+                </div>
+                <button type="submit" class="btn btn-primary">Registrar</button>
                 <button type="button" class="btn btn-link" routerLink='/login'>Cancelar</button>
             </form>
         </div>

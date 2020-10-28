@@ -3,7 +3,7 @@ export class User {
     password: string;
     firstName: string;
     lastName: string;
-    birthday: Date;
+    birthDate: Date;
     country: string;
-    token: string;
+    imgFile: string;
 }

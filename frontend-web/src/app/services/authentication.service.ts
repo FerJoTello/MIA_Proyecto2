@@ -22,7 +22,7 @@ export class AuthenticationService {
 
     login(email: string, password: string) {
         let info = { email, password };
-        return this.http.post<any>('http://localhost:3000/login', info, {
+        return this.http.post<any>('http://localhost:3000/api/login', info, {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json'
             })
