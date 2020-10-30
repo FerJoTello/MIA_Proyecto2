@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Md5 } from 'ts-md5';
+import { User } from '../models/user';
 import { AlertService } from '../services/alert.service';
-import { AuthenticationService } from '../services/authentication.service';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -16,7 +17,6 @@ export class RegisterComponent implements OnInit {
     submitted = false;
     constructor(
         private router: Router,
-        private authenticationService: AuthenticationService,
         private userService: UserService,
         private alertService: AlertService
     ) {
@@ -27,10 +27,10 @@ export class RegisterComponent implements OnInit {
             firstName: [''],
             lastName: [''],
             email: [''],
+            country: [''],
             birthDate: [''],
             password1: [''],
-            password2: [''],
-            imgFile: ['']
+            password2: ['']
         });
     }
 
@@ -39,9 +39,28 @@ export class RegisterComponent implements OnInit {
     }
 
     submitRegister(): void {
-        
-        //this.userService.register()
-
+        this.alertService.clear();
+        if (this.form.password1.value === this.form.password2.value) {
+            let hashedPass = Md5.hashStr(this.form.password1.value);
+            let user = new User(
+                this.form.email.value,
+                String(hashedPass),
+                this.form.firstName.value,
+                this.form.lastName.value,
+                this.form.birthDate.value,
+                this.form.country.value);
+            this.userService.register(user).subscribe(
+                data => {
+                    this.alertService.success("Registro correcto", true);
+                    this.router.navigate(['/login']);
+                }, err => {
+                    console.error(err)
+                    this.alertService.error(err);
+                }
+            );
+        } else {
+            this.alertService.error("Las contraseñas no coinciden");
+        }
     }
 
 }

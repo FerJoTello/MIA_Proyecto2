@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthenticationService } from './services/authentication.service';
 import { AlertComponent } from './alert/alert.component';
 import { AlertService } from './services/alert.service';
+import { UserService } from './services/user.service';
 
 @NgModule({
     declarations: [
@@ -27,7 +28,7 @@ import { AlertService } from './services/alert.service';
         AppRoutingModule,
         HttpClientModule
     ],
-    providers: [AuthenticationService, AlertService],
+    providers: [AuthenticationService, AlertService, UserService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

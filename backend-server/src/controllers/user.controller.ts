@@ -30,10 +30,14 @@ export async function register(req:Request, res:Response) {
     let pass = req.body.password;
     let firstName = req.body.firstName;
     let lastName = req.body.lastName;
-    let birthday = req.body.birthday;
+    let birthDate = req.body.birthDate;
     let country = req.body.country;
-    let query = `INSERT INTO USUARIO(correo_electronico,contrasena,nombre,apellido,fecha_nac,pais,tipo) VALUES('${email}','${pass}','${firstName}','${lastName}',DATE '${birthday}', '${country}',2)`;
-    let result = await connection.execute(query);
-    console.log(result);
-    return res.send("Termino");
+    let query = `INSERT INTO USUARIO(correo_electronico,contrasena,nombre,apellido,fecha_nac,pais,tipo) VALUES('${email}','${pass}','${firstName}','${lastName}',DATE '${birthDate}','${country}',2)`;
+    console.log(query);
+    let result:OracleDB.Result<any> = await connection.execute(query, [], {autoCommit:true});
+    if (result.rowsAffected){
+        res.send(result);
+    } else {
+        res.status(400).send('Bad Request')
+    }
 }

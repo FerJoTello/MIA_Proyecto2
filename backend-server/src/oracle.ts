@@ -2,6 +2,7 @@ import oracledb from 'oracledb'
 export var connection:oracledb.Connection;
 // revisa si es posible la conexion y se almacena la variable en connection
 export async function checkConnection() {
+    //oracledb.autoCommit = true;
     try {
         connection = await oracledb.getConnection({
             user: 'ferjo',
