@@ -12,6 +12,11 @@ import { AuthenticationService } from './services/authentication.service';
 import { AlertComponent } from './alert/alert.component';
 import { AlertService } from './services/alert.service';
 import { UserService } from './services/user.service';
+import { PassRecoveryComponent } from './pass-recovery/pass-recovery.component';
+import { ClientComponent } from './client/client.component';
+import { AdminComponent } from './admin/admin.component';
+import { MenuAdminComponent } from './admin/menu-admin/menu-admin.component';
+import { MenuClientComponent } from './client/menu-client/menu-client.component';
 
 @NgModule({
     declarations: [
@@ -19,7 +24,12 @@ import { UserService } from './services/user.service';
         LoginComponent,
         RegisterComponent,
         HomeComponent,
-        AlertComponent
+        AlertComponent,
+        PassRecoveryComponent,
+        ClientComponent,
+        AdminComponent,
+        MenuAdminComponent,
+        MenuClientComponent
     ],
     imports: [
         BrowserModule,

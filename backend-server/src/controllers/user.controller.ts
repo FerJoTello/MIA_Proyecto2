@@ -10,13 +10,15 @@ export async function login(req:Request, res:Response) {
     let result:OracleDB.Result<any> = await connection.execute(query);
     try {
         if (result.rows){
+            console.log(result.rows)
             let response = {
                 email: result.rows[0][0],
                 firstName: result.rows[0][2],
                 lastName: result.rows[0][3],
                 birthDate: result.rows[0][4],
                 country: result.rows[0][5],
-                imgFile: result.rows[0][6]
+                imgFile: result.rows[0][6],
+                type: result.rows[0][7]
             }
             res.json(response);
         }

@@ -38,7 +38,12 @@ export class LoginComponent implements OnInit {
             subscribe(
                 data => {
                     if (data) {
-                        //this.router.navigate(['/home']);
+                        if (data.type==2){
+                            this.router.navigate(['/client']);
+                        }
+                        else if (data.type==1){
+                            this.router.navigate(['/admin']);
+                        }
                     }   
                     else {
                         this.alertService.error("Usuario o contraseña incorrectos.")
