@@ -10,7 +10,6 @@ export async function login(req:Request, res:Response) {
     let result:OracleDB.Result<any> = await connection.execute(query);
     try {
         if (result.rows){
-            console.log(result.rows)
             let response = {
                 email: result.rows[0][0],
                 firstName: result.rows[0][2],

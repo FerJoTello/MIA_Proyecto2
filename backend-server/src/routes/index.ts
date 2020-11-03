@@ -9,6 +9,10 @@ router.route('/photos')
 
 import { login, register } from '../controllers/user.controller';
 router.route('/login').post(login);
-router.route('/register').post(register)
+router.route('/register').post(register);
+
+import { getCategories, insertProduct } from "../controllers/product.controller";
+router.route('/categories').get(getCategories);
+router.route('/products').post(insertProduct);
 
 export default router;

@@ -31,6 +31,9 @@ CREATE TABLE CATEGORIA(
     nombre_categoria VARCHAR(50) PRIMARY KEY NOT NULL,
     descripcion VARCHAR(100)
 );
+insert into CATEGORIA VALUES('deportes','productos relacionados con deportes');
+commit;
+select * from CATEGORIA;
 
 CREATE TABLE PRODUCTO (
     id_producto INT GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) PRIMARY KEY NOT NULL,

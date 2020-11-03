@@ -17,6 +17,13 @@ import { ClientComponent } from './client/client.component';
 import { AdminComponent } from './admin/admin.component';
 import { MenuAdminComponent } from './admin/menu-admin/menu-admin.component';
 import { MenuClientComponent } from './client/menu-client/menu-client.component';
+import { IndexComponent } from './client/index/index.component';
+import { ProfileComponent } from './client/profile/profile.component';
+import { MessagesComponent } from './client/messages/messages.component';
+import { PostComponent } from './client/post/post.component';
+import { TagInputModule } from 'ngx-chips';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ProductService } from './services/product.service';
 
 @NgModule({
     declarations: [
@@ -29,16 +36,22 @@ import { MenuClientComponent } from './client/menu-client/menu-client.component'
         ClientComponent,
         AdminComponent,
         MenuAdminComponent,
-        MenuClientComponent
+        MenuClientComponent,
+        IndexComponent,
+        ProfileComponent,
+        MessagesComponent,
+        PostComponent
     ],
     imports: [
         BrowserModule,
         FormsModule,
         ReactiveFormsModule,
         AppRoutingModule,
-        HttpClientModule
+        HttpClientModule,
+        TagInputModule,
+        BrowserAnimationsModule
     ],
-    providers: [AuthenticationService, AlertService, UserService],
+    providers: [AuthenticationService, AlertService, UserService, ProductService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
