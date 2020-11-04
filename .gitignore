@@ -157,3 +157,5 @@ dist
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,angular,node
 frontend-web/.browserslistrc
+# backend-uploads
+backend-server/uploads

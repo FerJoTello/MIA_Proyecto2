@@ -24,6 +24,7 @@ import { PostComponent } from './client/post/post.component';
 import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProductService } from './services/product.service';
+import { PhotoService } from './services/photo.service';
 
 @NgModule({
     declarations: [
@@ -51,7 +52,7 @@ import { ProductService } from './services/product.service';
         TagInputModule,
         BrowserAnimationsModule
     ],
-    providers: [AuthenticationService, AlertService, UserService, ProductService],
+    providers: [AuthenticationService, AlertService, UserService, ProductService, PhotoService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

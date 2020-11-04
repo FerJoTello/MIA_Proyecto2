@@ -1,9 +1,16 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { Product } from 'src/app/models/product';
 import { AlertService } from 'src/app/services/alert.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { PhotoService } from 'src/app/services/photo.service';
 import { ProductService } from 'src/app/services/product.service';
+
+interface HtmlInputEvent extends Event {
+    target: HTMLInputElement & EventTarget;
+}
 
 @Component({
     selector: 'app-post',
@@ -14,7 +21,10 @@ export class PostComponent implements OnInit {
     productForm: FormGroup;
     keywords = [];
     categories: any = [];
-    constructor(private productService: ProductService, private alertService: AlertService) { }
+    photoSelected: string | ArrayBuffer;
+    file: File;
+    fileInputPlaceholder: string = "Seleccione un archivo";
+    constructor(private productService: ProductService, private alertService: AlertService, private photoService: PhotoService, private authenticationService: AuthenticationService) { }
 
     ngOnInit(): void {
         this.productService.getCategories().subscribe(categories => {
@@ -32,20 +42,48 @@ export class PostComponent implements OnInit {
         return this.productForm.controls;
     }
 
+    // image preview
+    onPhotoSelected(event: HtmlInputEvent): void {
+        if (event.target.files && event.target.files[0]) {
+            this.file = <File>event.target.files[0];
+            const reader = new FileReader();
+            reader.onload = e => this.photoSelected = reader.result;
+            reader.readAsDataURL(this.file);
+            this.fileInputPlaceholder = this.file.name;
+        }
+    }
+    pipe = new DatePipe('en-US'); // Use your own locale
     createProduct(): void {
-        let product = new Product(
-            this.form.name.value,
-            this.form.price.value,
-            this.form.category.value,
-            this.form.detail.value
-        );
-        console.log(product);
-        this.productService.insertProduct(product).subscribe(
+        this.photoService.createPhoto(this.file).subscribe(
             data => {
-                this.alertService.success("Producto registrado correctamente.")
-            }, err => {
-                console.error(err);
-                this.alertService.error("Ha ocurrido un error." + err);
+                const now = Date.now();
+                const myFormattedDate = this.pipe.transform(now, 'mediumDate');
+                console.log(myFormattedDate);
+                let product = new Product(
+                    this.form.name.value,
+                    this.form.price.value,
+                    this.form.category.value,
+                    this.form.detail.value,
+                    this.authenticationService.currentUserValue.email,
+                    data['path'],
+                    myFormattedDate
+                );
+                // insert product
+                this.productService.insertProduct(product).subscribe(
+                    data => {
+                        console.log(data);
+                        this.alertService.success("Producto registrado correctamente.");
+                    }, err => {
+                        console.error(err);
+                        this.alertService.error("Ha ocurrido un error.");
+                        return
+                    }
+                );
+            },
+            err => {
+                console.log(err);
+                this.alertService.error("Ha ocurrido un error.");
+                return
             }
         );
     }

@@ -9,6 +9,8 @@ export class PhotoService {
     constructor(private http: HttpClient) { }
 
     createPhoto(photo: File) {
-        return this.http.post('http://localhost:3000/api/photo', photo);
+        const fd = new FormData();
+        fd.append('image', photo);
+        return this.http.post('http://localhost:3000/api/photos', fd);
     }
 }

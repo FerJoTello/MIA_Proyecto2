@@ -17,11 +17,13 @@
                     <tag-input [(ngModel)]='keywords' [ngModelOptions]="{standalone: true}" placeholder="+"
                         secondaryPlaceholder="Ingresa palabras clave"></tag-input>
                 </div>
+                <label for="keyword">Precio</label>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Q</span>
                     </div>
-                    <input formControlName="price" type="number" min="1" step="1" class="form-control" aria-label="Amount">
+                    <input formControlName="price" type="number" min="1" step="1" class="form-control"
+                        aria-label="Amount">
                 </div>
                 <div class="form-group">
                     <label for="category">Categoria</label>
@@ -30,6 +32,15 @@
                         <option *ngFor="let category of categories" [ngValue]="category">{{category}}</option>
                     </select>
                 </div>
+                <label for="keyword">Subir Imagen</label>
+                <div class="input-group mb-3">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="inputGroupFile01" (change)="onPhotoSelected($event)" #photoInput>
+                        <label [(ngModel)]="fileInputPlaceholder" ngDefaultControl [ngModelOptions]="{standalone: true}" class="custom-file-label" for="inputGroupFile01">{{fileInputPlaceholder}}</label>
+                    </div>
+                </div>
+                <img *ngIf="photoSelected" [src]="photoSelected" class="img-fluid" alt="No image"
+                    (click)="photoInput.click()">
                 <button type="submit" class="btn btn-primary">Crear Producto</button>
             </form>
             <div class="col-sm-6">
