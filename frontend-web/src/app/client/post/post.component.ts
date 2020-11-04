@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Product } from 'src/app/models/product';
 import { AlertService } from 'src/app/services/alert.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
@@ -24,7 +25,13 @@ export class PostComponent implements OnInit {
     photoSelected: string | ArrayBuffer;
     file: File;
     fileInputPlaceholder: string = "Seleccione un archivo";
-    constructor(private productService: ProductService, private alertService: AlertService, private photoService: PhotoService, private authenticationService: AuthenticationService) { }
+    constructor(
+        private router: Router,
+        private productService: ProductService,
+        private alertService: AlertService,
+        private photoService: PhotoService,
+        private authenticationService: AuthenticationService
+    ) { }
 
     ngOnInit(): void {
         this.productService.getCategories().subscribe(categories => {
@@ -71,8 +78,8 @@ export class PostComponent implements OnInit {
                 // insert product
                 this.productService.insertProduct(product).subscribe(
                     data => {
-                        console.log(data);
-                        this.alertService.success("Producto registrado correctamente.");
+                        this.alertService.success("Producto registrado correctamente.", true);
+                        this.router.navigate(['/client/index']);
                     }, err => {
                         console.error(err);
                         this.alertService.error("Ha ocurrido un error.");

@@ -3,8 +3,8 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './principal/login/login.component';
+import { RegisterComponent } from './principal/register/register.component';
 import { HomeComponent } from './home/home.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -25,6 +25,7 @@ import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProductService } from './services/product.service';
 import { PhotoService } from './services/photo.service';
+import { PrincipalComponent } from './principal/principal.component';
 
 @NgModule({
     declarations: [
@@ -41,7 +42,8 @@ import { PhotoService } from './services/photo.service';
         IndexComponent,
         ProfileComponent,
         MessagesComponent,
-        PostComponent
+        PostComponent,
+        PrincipalComponent
     ],
     imports: [
         BrowserModule,

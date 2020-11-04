@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AlertService } from '../services/alert.service';
 
 @Component({
-    selector: 'app-client',
-    templateUrl: './client.component.html',
-    styleUrls: ['./client.component.css']
+    selector: 'app-principal',
+    templateUrl: './principal.component.html',
+    styleUrls: ['./principal.component.css']
 })
-export class ClientComponent implements OnInit {
+export class PrincipalComponent implements OnInit, OnDestroy{
 
     activate = false;
     constructor(private alertService: AlertService) { }
@@ -22,4 +22,7 @@ export class ClientComponent implements OnInit {
             });
     }
 
+    ngOnDestroy(){
+
+    }
 }

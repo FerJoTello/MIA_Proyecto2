@@ -8,21 +8,30 @@ import { PostComponent } from './client/post/post.component';
 import { ProfileComponent } from './client/profile/profile.component';
 import { AuthAdminGuard } from './helpers/auth-admin.guard';
 import { AuthClientGuard } from './helpers/auth-client.guard';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './principal/login/login.component';
+import { PrincipalComponent } from './principal/principal.component';
+import { RegisterComponent } from './principal/register/register.component';
 
 const routes: Routes = [
-    { path: '', component: LoginComponent },
-    { path: 'login', component: LoginComponent },
-    { path: 'register', component: RegisterComponent },
+    {
+        path: '', component: PrincipalComponent,
+        children: [
+            { path: 'login', component: LoginComponent },
+            { path: 'register', component: RegisterComponent }
+        ]
+    },
     {
         path: 'client', component: ClientComponent, canActivate: [AuthClientGuard],
         children: [
-            { path: 'index', component: IndexComponent }, { path: 'post', component: PostComponent }, { path: 'profile', component: ProfileComponent }, { path: 'messages', component: MessagesComponent }, { path: '**', redirectTo: 'index' }
+            { path: 'index', component: IndexComponent },
+            { path: 'post', component: PostComponent },
+            { path: 'profile', component: ProfileComponent },
+            { path: 'messages', component: MessagesComponent },
+            { path: '**', redirectTo: 'index' }
         ]
     },
     { path: 'admin', component: AdminComponent, canActivate: [AuthAdminGuard] },
-    { path: '**', component: LoginComponent }
+    { path: '**', redirectTo: 'principal' }
 ];
 
 @NgModule({
