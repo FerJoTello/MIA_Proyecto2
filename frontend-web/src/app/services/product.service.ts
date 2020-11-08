@@ -24,4 +24,13 @@ export class ProductService {
             })
         });
     }
+
+    insertKeyWord(id_product, array) {
+        return this.http.post('http://localhost:3000/api/keywords', { id_product, array }, {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json'
+            })
+        });
+    }
+
 }

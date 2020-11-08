@@ -65,7 +65,6 @@ export class PostComponent implements OnInit {
             data => {
                 const now = Date.now();
                 const myFormattedDate = this.pipe.transform(now, 'mediumDate');
-                console.log(myFormattedDate);
                 let product = new Product(
                     this.form.name.value,
                     this.form.price.value,
@@ -78,6 +77,17 @@ export class PostComponent implements OnInit {
                 // insert product
                 this.productService.insertProduct(product).subscribe(
                     data => {
+                        let keys = []
+                        for (let index = 0; index < this.keywords.length; index++) {
+                            keys.push({ value: this.keywords[index]['value'] })
+                        }
+                        try {
+                            this.productService.insertKeyWord(data['id_producto'], keys).subscribe(
+                                value => {
+                                    //console.log(value);
+                                }
+                            );
+                        } catch (err) { }
                         this.alertService.success("Producto registrado correctamente.", true);
                         this.router.navigate(['/client/index']);
                     }, err => {

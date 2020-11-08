@@ -40,3 +40,53 @@ export async function insertProduct(req: Request, res: Response) {
         res.send(null);
     }
 }
+
+export async function insertProduct2(req: Request, res: Response) {
+    let nombre_producto = req.body.name;
+    let precio_producto = req.body.price;
+    let categoria = req.body.category;
+    let detalle_producto = req.body.detail;
+    let usuario = req.body.user;
+    let imagen = req.body.image;
+    let fecha_publicacion = req.body.postDate;
+    let query = `
+    DECLARE
+        id_prod INT;
+    BEGIN
+        :id_prod := inserta_producto('${nombre_producto}',${precio_producto},'${categoria}','${detalle_producto}','${usuario}','${imagen}','${fecha_publicacion}');
+    END;`;
+    let result: OracleDB.Result<any> = await connection.execute(query,
+        { id_prod: { dir: OracleDB.BIND_OUT, type: OracleDB.NUMBER } },
+        { autoCommit: true });
+    try {
+        if (result.outBinds) {
+            res.json({ id_producto: result.outBinds.id_prod });
+        } else {
+            res.send(null);
+        }
+    } catch (err) {
+        res.send(null);
+    }
+}
+
+export async function insertKeyWord(req: Request, res: Response) {
+    let binds = req.body.array;
+    for (let index = 0; index < binds.length; index++) {
+        const element = binds[index].value;
+        console.log(element);
+        let query1 = `INSERT INTO PALABRA_CLAVE(palabra_clave) VALUES('${element}')`;
+        try {
+            await connection.execute(query1, [], { autoCommit: true });
+        } catch (err) { }
+    }
+    let id_producto = req.body.id_product;
+    let query2 = `INSERT INTO PRODUCTO_CLAVE(producto,palabra_clave) VALUES(${id_producto}, :value)`;
+    try {
+        await connection.executeMany(query2, binds, { autoCommit: true });
+        res.json({ message: "todo bien" });
+    }
+    catch (err) {
+        res.status(500);
+    }
+
+}
