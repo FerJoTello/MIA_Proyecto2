@@ -1,0 +1,49 @@
+<div *ngIf="product" class="container-fluid myAdjust">
+    <h2 style="text-align:center">{{product[1]}}</h2>
+    <div class="row">
+        <div class="col">
+            <div class="row myAdjust">
+                <div class="col">
+                    <img [src]="'http://localhost:3000/'+product[6]" class="rounded mx-auto d-block"
+                        style="max-height: 500px;" alt="Imagen del producto">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-8">
+                    Publicado por:
+                    <!--style="max-height: max-content; max-width: 30rem;"-->
+                    <div class="card">
+                        <div class="card-body" style="text-align: left;">
+                            <img src="..." alt="user image" class="img-thumbnail">
+                            Nombre del bro
+                            <button type="button" class="btn btn-outline-info float-right">Contactar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4 text-center">
+                    # <button type="button" class="btn btn-outline-info">Me gusta</button>
+                    &nbsp;
+                    # <button type="button" class="btn btn-outline-danger">No me gusta</button>
+                </div>
+            </div>
+        </div>
+        <div class="col myAdjust">
+            <div class="card text-white bg-dark mb-3">
+                <div class="card-header">
+                    <b>Precio: Q{{product[2]}}</b> - Categoría: {{product[3]}}
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Detalles</h5>
+                    <p class="card-text">{{product[4]}}</p>
+                </div>
+                <div class="card-footer">
+                    <button type="button" class="btn btn-info">Añadir al carrito</button>
+                </div>
+            </div>
+            Palabras Clave:
+            <div>
+                Comentarios
+            </div>
+        </div>
+    </div>
+</div>

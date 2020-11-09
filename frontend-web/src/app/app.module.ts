@@ -27,6 +27,7 @@ import { ProductService } from './services/product.service';
 import { PhotoService } from './services/photo.service';
 import { PrincipalComponent } from './principal/principal.component';
 import { ProductCardComponent } from './client/index/product-card/product-card.component';
+import { ProductComponent } from './client/product/product.component';
 
 @NgModule({
     declarations: [
@@ -45,7 +46,8 @@ import { ProductCardComponent } from './client/index/product-card/product-card.c
         MessagesComponent,
         PostComponent,
         PrincipalComponent,
-        ProductCardComponent
+        ProductCardComponent,
+        ProductComponent
     ],
     imports: [
         BrowserModule,

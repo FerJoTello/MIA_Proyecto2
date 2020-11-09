@@ -5,6 +5,7 @@ import { ClientComponent } from './client/client.component';
 import { IndexComponent } from './client/index/index.component';
 import { MessagesComponent } from './client/messages/messages.component';
 import { PostComponent } from './client/post/post.component';
+import { ProductComponent } from './client/product/product.component';
 import { ProfileComponent } from './client/profile/profile.component';
 import { AuthAdminGuard } from './helpers/auth-admin.guard';
 import { AuthClientGuard } from './helpers/auth-client.guard';
@@ -27,11 +28,16 @@ const routes: Routes = [
             { path: 'post', component: PostComponent },
             { path: 'profile', component: ProfileComponent },
             { path: 'messages', component: MessagesComponent },
+            {
+                path: 'product', component: ProductComponent, children: [
+                    { path: ':id', component: ProductComponent }
+                ]
+            },
             { path: '**', redirectTo: 'index' }
         ]
     },
     { path: 'admin', component: AdminComponent, canActivate: [AuthAdminGuard] },
-    { path: '**', redirectTo: 'principal' }
+    { path: '**', redirectTo: '' }
 ];
 
 @NgModule({

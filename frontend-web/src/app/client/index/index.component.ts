@@ -16,7 +16,6 @@ export class IndexComponent implements OnInit {
     ngOnInit(): void {
         this.productService.getProducts().subscribe(products => {
             this.products = products;
-            console.log(this.products);
         });
     }
 

@@ -47,6 +47,22 @@ export async function getProducts(req: Request, res: Response) {
     }
 }
 
+export async function getProduct(req: Request, res: Response) {
+    let id_producto = req.params.id;
+    let query = `SELECT * FROM PRODUCTO WHERE id_producto = ${id_producto}`;
+    let result: OracleDB.Result<any> = await connection.execute(query);
+    try {
+        if (result.rows) {
+            res.json(result.rows[0]);
+        } else {
+            res.send(null);
+        }
+    } catch (err) {
+        res.send(null);
+    }
+}
+
+
 export async function insertProduct(req: Request, res: Response) {
     let nombre_producto = req.body.name;
     let precio_producto = req.body.price;
