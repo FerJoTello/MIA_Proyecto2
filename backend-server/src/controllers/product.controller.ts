@@ -17,6 +17,35 @@ export async function getCategories(req: Request, res: Response) {
     }
 }
 
+export async function getProducts(req: Request, res: Response) {
+    let query = `SELECT * FROM PRODUCTO ORDER BY fecha_publicacion DESC`;
+    let result: OracleDB.Result<any> = await connection.execute(query);
+    try {
+        if (result.rows) {
+            /*let response = [];
+            for (let i = 0; i < result.rows.length; i++) {
+                const row = result.rows[0];
+                let product = {
+                    id_product:row[0],
+                    name:row[1],
+                    price:row[2],
+                    category:row[3],
+                    detail:row[4],
+                    user:row[5],
+                    imgFile:row[6],
+                    date:row[7],
+                    visible:row[8]
+                }
+                response.push(product);
+            }*/
+            res.json(result.rows);
+        } else {
+            res.send(null);
+        }
+    } catch (err) {
+        res.send(null);
+    }
+}
 
 export async function insertProduct(req: Request, res: Response) {
     let nombre_producto = req.body.name;
@@ -73,7 +102,6 @@ export async function insertKeyWord(req: Request, res: Response) {
     let binds = req.body.array;
     for (let index = 0; index < binds.length; index++) {
         const element = binds[index].value;
-        console.log(element);
         let query1 = `INSERT INTO PALABRA_CLAVE(palabra_clave) VALUES('${element}')`;
         try {
             await connection.execute(query1, [], { autoCommit: true });

@@ -26,6 +26,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProductService } from './services/product.service';
 import { PhotoService } from './services/photo.service';
 import { PrincipalComponent } from './principal/principal.component';
+import { ProductCardComponent } from './client/index/product-card/product-card.component';
 
 @NgModule({
     declarations: [
@@ -43,7 +44,8 @@ import { PrincipalComponent } from './principal/principal.component';
         ProfileComponent,
         MessagesComponent,
         PostComponent,
-        PrincipalComponent
+        PrincipalComponent,
+        ProductCardComponent
     ],
     imports: [
         BrowserModule,

@@ -11,9 +11,9 @@ import { login, register } from '../controllers/user.controller';
 router.route('/login').post(login);
 router.route('/register').post(register);
 
-import { getCategories, insertProduct2, insertKeyWord } from "../controllers/product.controller";
+import { getCategories, getProducts, insertProduct2, insertKeyWord } from "../controllers/product.controller";
 router.route('/categories').get(getCategories);
-router.route('/products').post(insertProduct2);
+router.route('/products').get(getProducts).post(insertProduct2);
 router.route('/keywords').post(insertKeyWord);
 
 export default router;

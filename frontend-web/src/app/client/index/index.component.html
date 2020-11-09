@@ -1,1 +1,5 @@
-<p>index works!</p>
+<div class="myAdjust">
+    <div class="card-columns">
+        <app-product-card *ngFor="let product of products"[childProduct]="product"></app-product-card>
+    </div>
+</div>

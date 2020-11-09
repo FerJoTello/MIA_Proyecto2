@@ -35,6 +35,7 @@ export class LoginComponent implements OnInit {
             subscribe(
                 data => {
                     if (data) {
+                        console.log(data);
                         if (data.type == 2) {
                             this.router.navigate(['/client']);
                         }

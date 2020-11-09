@@ -64,7 +64,7 @@ export class PostComponent implements OnInit {
         this.photoService.createPhoto(this.file).subscribe(
             data => {
                 const now = Date.now();
-                const myFormattedDate = this.pipe.transform(now, 'mediumDate');
+                const myFormattedDate = this.pipe.transform(now, 'medium');
                 let product = new Product(
                     this.form.name.value,
                     this.form.price.value,

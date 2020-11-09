@@ -16,7 +16,7 @@ CREATE TABLE USUARIO(
     tipo REFERENCES TIPO_USUARIO(id_tipo)
 );
 
-INSERT INTO USUARIO(correo_electronico,contrasena,nombre,apellido,fecha_nac,pais,tipo) VALUES('ferjo','202cb962ac59075b964b07152d234b70','Fernando','Tello',DATE '2001-03-04','GT',1);
+--INSERT INTO USUARIO(correo_electronico,contrasena,nombre,apellido,fecha_nac,pais,tipo) VALUES('ferjo','202cb962ac59075b964b07152d234b70','Fernando','Tello',DATE '2001-03-04','GT',1);
 CREATE TABLE OPERACION(
     id_operacion INT GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) PRIMARY KEY NOT NULL,
     cliente REFERENCES USUARIO(correo_electronico),
@@ -28,7 +28,7 @@ CREATE TABLE CATEGORIA(
     nombre_categoria VARCHAR(50) PRIMARY KEY NOT NULL,
     descripcion VARCHAR(100)
 );
-insert into CATEGORIA VALUES('Deportes','productos relacionados con deportes');
+--insert into CATEGORIA VALUES('Deportes','productos relacionados con deportes');
 
 CREATE TABLE PRODUCTO (
     id_producto INT GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) PRIMARY KEY NOT NULL,
@@ -42,14 +42,25 @@ CREATE TABLE PRODUCTO (
     es_visible NUMBER(1) NOT NULL CHECK (es_visible IN (1,0))
 );
 
+CREATE OR REPLACE FUNCTION
+inserta_producto(nombre IN VARCHAR,precio IN DECIMAL, cat IN VARCHAR,detalle IN VARCHAR,usu IN VARCHAR, img IN VARCHAR, fecha IN VARCHAR) RETURN INT IS
+    id_prod INT;
+BEGIN
+    INSERT INTO PRODUCTO(nombre_producto,precio_producto,categoria,detalle_producto,usuario,imagen,fecha_publicacion,es_visible)
+        VALUES(nombre,precio,cat,detalle,usu,img,TO_DATE(fecha, 'MONTH DD, YYYY'),1)
+        RETURNING id_producto INTO id_prod;
+    RETURN id_prod;
+END inserta_producto;
+
 CREATE TABLE PALABRA_CLAVE(
     palabra_clave VARCHAR(20) PRIMARY KEY NOT NULL
 );
-
+SELECT * FROM PALABRA_CLAVE;
 CREATE TABLE PRODUCTO_CLAVE (
     producto REFERENCES PRODUCTO(id_producto),
     palabra_clave REFERENCES PALABRA_CLAVE(palabra_clave)
 );
+SELECT * FROM PRODUCTO_CLAVE;
 CREATE TABLE COMENTARIO(
     id_comentario INT GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) PRIMARY KEY NOT NULL,
     usuario REFERENCES USUARIO(correo_electronico),
