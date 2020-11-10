@@ -1,1 +1,87 @@
-<p>profile works!</p>
+<div class="container-fluid myAdjust">
+    <h1 style="text-align:left">{{firstName}} {{lastName}}</h1>
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="mx-auto d-block" style="max-width: 320px; max-height: 320px;">
+                <img [src]="imgFile" class="rounded img-fluid" alt="Imagen del usuario">
+            </div>
+            <br>
+            <div [hidden]="selectedPhoto" class="custom-file btn btn-info">
+                <input type="file" class="custom-file-input" id="validatedCustomFile" style="display: contents;"
+                    (change)="onPhotoSelected($event)">
+                <label for="validatedCustomFile">Actualizar foto de perfil</label>
+            </div>
+            <div [hidden]="!selectedPhoto" class="text-center">
+                <button (click)="confirmProfilePicture()" type="button" class="btn btn-info">Confirmar nueva
+                    foto</button>
+                &nbsp;
+                <button (click)="cancelProfilePicture()" type="button"
+                    class="btn btn-outline-secondary">Cancelar</button>
+            </div>
+            <br>
+            <b>Cantidad de creditos: {{actualUser.credits}}</b>
+            <app-alert></app-alert>
+        </div>
+        <div class="col-lg-8">
+            <h4>Modificar datos</h4>
+            <div class="form-group row">
+                <label for="email" class="col-sm-2 col-form-label">Correo Electrónico</label>
+                <div class="col-sm-10">
+                    <input type="text" readonly class="form-control-plaintext" id="staticEmail"
+                        [value]="actualUser.email">
+                </div>
+            </div>
+            <br>
+            <div class="form-group row">
+                <label for="firstName" class="col-sm-2 col-form-label">Nombre</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="firstName" [(ngModel)]="actualUser.firstName" required>
+                </div>
+                <label for="lastName" class="col-sm-2 col-form-label">Apellido</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="lastName" [(ngModel)]="actualUser.lastName" required>
+                </div>
+            </div>
+            <br>
+            <div class="form-group row">
+                <label for="country" class="col-sm-2 col-form-label">País</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="country" [(ngModel)]="actualUser.country" required>
+                </div>
+                <label for="birthDate" class="col-sm-2 col-form-label">Fecha de Nacimiento</label>
+                <div class="col-sm-4">
+                    <input type="date" class="form-control" id="birthDate"
+                        [ngModel]="actualUser.birthDate | date:'yyyy-MM-dd'"
+                        (ngModelChange)="actualUser.birthDate=$event" required>
+                </div>
+            </div>
+            <button (click)="modifyUserInfo()" type="button" class="btn btn-info">Confirmar cambios</button>
+            <br>
+            <h4>Cambiar Contraseña</h4>
+            <form [formGroup]="passwordForm" (ngSubmit)="modifyPassword()">
+                <div class="form-group row">
+                    <label for="actualPassword" class="col-sm-2 col-form-label">Contraseña actual</label>
+                    <div class="col-sm-4">
+                        <input type="password" formControlName="actualPassword" class="form-control" id="actualPassword"
+                            required>
+                    </div>
+                </div>
+                <br>
+                <div class="form-group row">
+                    <label for="newPassword" class="col-sm-2 col-form-label">Contraseña nueva</label>
+                    <div class="col-sm-4">
+                        <input type="password" formControlName="newPassword1" class="form-control" id="newPassword"
+                            required>
+                    </div>
+                    <label for="confirmedPassword" class="col-sm-2 col-form-label" required>Confirmar contraseña
+                        nueva</label>
+                    <div class="col-sm-4">
+                        <input type="password" formControlName="newPassword2" class="form-control"
+                            id="confirmedPassword">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-info">Confirmar cambios</button>
+            </form>
+        </div>
+    </div>
+</div>

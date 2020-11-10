@@ -19,5 +19,6 @@ app.use('/api', indexRoutes);
 
 // accediendo a la carpeta uploads para almacenar imagenes
 app.use('/uploads', express.static(path.resolve('uploads')));
+app.use('/profile', express.static(path.resolve('profile')));
 
 export default app;

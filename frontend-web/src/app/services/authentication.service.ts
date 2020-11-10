@@ -5,7 +5,7 @@ import { map, catchError } from 'rxjs/operators';
 import { User } from '../models/user';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class AuthenticationService {
     private currentUserSubject: BehaviorSubject<User>;
@@ -18,6 +18,11 @@ export class AuthenticationService {
 
     public get currentUserValue(): User {
         return this.currentUserSubject.value;
+    }
+
+    public updateUser(user: any): void {
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        this.currentUserSubject.next(user);
     }
 
     login(email: string, password: string) {
@@ -37,6 +42,15 @@ export class AuthenticationService {
                 console.error('Error en login:ClientService ' + err);
                 return throwError(err);
             }));
+    }
+
+    checkUserCredentials(email: string, password: string) {
+        let info = { email, password };
+        return this.http.post<any>('http://localhost:3000/api/login', info, {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json'
+            })
+        });
     }
 
     logout() {

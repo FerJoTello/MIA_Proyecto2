@@ -18,4 +18,28 @@ export class UserService {
         });
     }
 
+    updateProfilePicture(email: string, path: string) {
+        return this.http.post('http://localhost:3000/api/user/updateProfilePicture', { email: email, path: path }, {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json'
+            })
+        });
+    }
+
+    updateUserInfo(email, firstName, lastName, birthDate, country) {
+        return this.http.post('http://localhost:3000/api/user/updateInfo', { email: email, firstName: firstName, lastName: lastName, birthDate: birthDate, country: country }, {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json'
+            })
+        });
+    }
+
+    updateUserPassword(email, password) {
+        return this.http.post('http://localhost:3000/api/user/updatePassword', { email: email, password: password }, {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json'
+            })
+        });
+    }
+
 }

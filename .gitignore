@@ -159,3 +159,4 @@ dist
 frontend-web/.browserslistrc
 # backend-uploads
 backend-server/uploads
+backend-server/profile

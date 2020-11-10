@@ -61,7 +61,7 @@ export class PostComponent implements OnInit {
     }
     pipe = new DatePipe('en-US'); // Use your own locale
     createProduct(): void {
-        this.photoService.createPhoto(this.file).subscribe(
+        this.photoService.createProductPhoto(this.file).subscribe(
             data => {
                 const now = Date.now();
                 const myFormattedDate = this.pipe.transform(now, 'medium');

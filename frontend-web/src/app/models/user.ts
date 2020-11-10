@@ -6,6 +6,7 @@ export class User {
     birthDate: Date;
     country: string;
     type: number;
+    credits: number;
 
     constructor(email: string, password: string, firstName: string, lastName: string, birthDate: Date, country: string) {
         this.email = email;
