@@ -19,25 +19,27 @@ export async function getCategories(req: Request, res: Response) {
 
 export async function getProducts(req: Request, res: Response) {
     let query = `SELECT * FROM PRODUCTO ORDER BY fecha_publicacion DESC`;
-    let result: OracleDB.Result<any> = await connection.execute(query);
+    let result: OracleDB.Result<string> = await connection.execute(query, [], { outFormat: OracleDB.OUT_FORMAT_OBJECT });
     try {
         if (result.rows) {
-            /*let response = [];
+            /**
+            let response = [];
             for (let i = 0; i < result.rows.length; i++) {
                 const row = result.rows[0];
                 let product = {
-                    id_product:row[0],
-                    name:row[1],
-                    price:row[2],
-                    category:row[3],
-                    detail:row[4],
-                    user:row[5],
-                    imgFile:row[6],
-                    date:row[7],
-                    visible:row[8]
+                    id_product: row[0],
+                    name: row[1],
+                    price: row[2],
+                    category: row[3],
+                    detail: row[4],
+                    user: row[5],
+                    imgFile: row[6],
+                    date: row[7],
+                    visible: row[8]
                 }
                 response.push(product);
-            }*/
+            }
+             */
             res.json(result.rows);
         } else {
             res.send(null);
@@ -47,7 +49,7 @@ export async function getProducts(req: Request, res: Response) {
     }
 }
 
-export async function getProduct(req: Request, res: Response) {
+export async function getSpecificProduct(req: Request, res: Response) {
     let id_producto = req.params.id;
     let query = `SELECT * FROM PRODUCTO WHERE id_producto = ${id_producto}`;
     let result: OracleDB.Result<any> = await connection.execute(query);

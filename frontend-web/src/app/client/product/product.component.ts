@@ -24,7 +24,6 @@ export class ProductComponent implements OnInit {
             product => {
                 if (product) {
                     this.product = product;
-                    console.log(this.product);
                 }
             }
         );

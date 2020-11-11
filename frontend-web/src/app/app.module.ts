@@ -28,6 +28,8 @@ import { PhotoService } from './services/photo.service';
 import { PrincipalComponent } from './principal/principal.component';
 import { ProductCardComponent } from './client/index/product-card/product-card.component';
 import { ProductComponent } from './client/product/product.component';
+import { CartComponent } from './client/cart/cart.component';
+import { RowProductComponent } from './client/cart/row-product/row-product.component';
 
 @NgModule({
     declarations: [
@@ -47,7 +49,9 @@ import { ProductComponent } from './client/product/product.component';
         PostComponent,
         PrincipalComponent,
         ProductCardComponent,
-        ProductComponent
+        ProductComponent,
+        CartComponent,
+        RowProductComponent
     ],
     imports: [
         BrowserModule,

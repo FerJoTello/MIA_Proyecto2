@@ -113,8 +113,6 @@ export class ProfileComponent implements OnInit {
     modifyPassword() {
         this.alertService.clear();
         if (this.form.newPassword1.value === this.form.newPassword2.value) {
-            console.log(this.actualUser.email)
-            console.log(String(Md5.hashStr(this.form.actualPassword.value)))
             this.authenticationService.checkUserCredentials(this.actualUser.email, String(Md5.hashStr(this.form.actualPassword.value))).subscribe(
                 vaidCredentials => {
                     if (vaidCredentials) {

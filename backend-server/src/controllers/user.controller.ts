@@ -100,3 +100,22 @@ export async function updatePassword(req: Request, res: Response) {
         res.send();
     }
 }
+
+export async function updateCredits(req: Request, res: Response) {
+    let binds = req.body.array;
+    let query =
+        `BEGIN
+            actualiza_creditos(:email,:creditsToModify);
+        END;`
+    try {
+        let result: OracleDB.Result<any> = await connection.executeMany(query, binds, { autoCommit: true });
+        if (result.rowsAffected) {
+            res.json({ message: "Actualizados correctamente" });
+        } else {
+            res.json({ message: "No se actualizó" })
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).json(err);
+    }
+}

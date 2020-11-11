@@ -1,0 +1,12 @@
+<th scope="row">{{i+1}}</th>
+<td>{{rowProduct.name}}</td>
+<td>Q{{rowProduct.price}}</td>
+<td #rowQuantity>
+    {{rowProduct.quantity}}
+    <div class="float-right">
+        <button type="button" class="btn btn-outline-light" (click)="inc()">+</button>
+        &nbsp;
+        <button type="button" class="btn btn-outline-light" (click)="dec()">-</button>
+    </div>
+</td>
+<td>Q{{rowProduct.price*rowProduct.quantity}}</td>

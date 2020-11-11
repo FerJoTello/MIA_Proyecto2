@@ -1,0 +1,30 @@
+<div class="myAdjust">
+    <div class="container">
+        <h3 style="text-align: center;">Lista de Productos</h3>
+        <table class="table table-hover table-dark table-bordered">
+            <caption>Total: Q{{total}}</caption>
+            <thead>
+                <tr>
+                    <th scope="col">No.</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Precio Unitario</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let product of products; let id = index;" app-row-product [product]="product" [index]="id"
+                    (messageEvent)="receiveMessage($event)">
+                </tr>
+            </tbody>
+        </table>
+        <div class="col-sm-6 offset-sm-3">
+            <app-alert></app-alert>
+        </div>
+        <div>
+            <button type="button" class="btn btn-info" (click)="confirmBuy()">Confirmar Compra</button>
+            &nbsp;
+            <button type="button" class="btn btn-outline-secondary" (click)="cleanCart()">Limpiar Carrito</button>
+        </div>
+    </div>
+</div>

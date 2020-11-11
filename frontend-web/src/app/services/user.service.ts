@@ -1,6 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
 import { User } from '../models/user';
 
 @Injectable({
@@ -36,6 +35,14 @@ export class UserService {
 
     updateUserPassword(email, password) {
         return this.http.post('http://localhost:3000/api/user/updatePassword', { email: email, password: password }, {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json'
+            })
+        });
+    }
+
+    creditsTransaction(array) {
+        return this.http.post('http://localhost:3000/api/user/credits', { array: array }, {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json'
             })

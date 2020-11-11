@@ -13,18 +13,11 @@ CREATE TABLE USUARIO(
     fecha_nac DATE NOT NULL,
     pais VARCHAR(20) NOT NULL,
     foto_perfil VARCHAR(100),
-    tipo REFERENCES TIPO_USUARIO(id_tipo)
+    tipo REFERENCES TIPO_USUARIO(id_tipo),
+    creditos DECIMAL(8,2)
 );
 --INSERT INTO USUARIO(correo_electronico,contrasena,nombre,apellido,fecha_nac,pais,tipo) VALUES('ferjo','202cb962ac59075b964b07152d234b70','Fernando','Tello',DATE '2001-03-04','GT',1);
-CREATE OR REPLACE FUNCTION
-actualiza_usuario(email IN VARCHAR, nombre IN VARCHAR,apellido IN VARCHAR, cat IN VARCHAR,detalle IN VARCHAR,usu IN VARCHAR, img IN VARCHAR, fecha IN VARCHAR) RETURN INT IS
-    id_prod INT;
-BEGIN
-    INSERT INTO PRODUCTO(nombre_producto,precio_producto,categoria,detalle_producto,usuario,imagen,fecha_publicacion,es_visible)
-        VALUES(nombre,precio,cat,detalle,usu,img,TO_DATE(fecha, 'MONTH DD, YYYY'),1)
-        RETURNING id_producto INTO id_prod;
-    RETURN id_prod;
-END inserta_producto;
+UPDATE USUARIO SET contrasena = '202cb962ac59075b964b07152d234b70' WHERE correo_electronico = 'chepix';
 
 CREATE TABLE OPERACION(
     id_operacion INT GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) PRIMARY KEY NOT NULL,
@@ -94,6 +87,21 @@ CREATE TABLE SOLICITUD(
     fecha_solicitud DATE,
     ejecutada NUMBER(1) NOT NULL CHECK (ejecutada IN (1,0))
 );
+--INSERT INTO SOLICITUD(cliente,producto,cantidad,fecha_solicitud,ejectuada) VALUES(cliente,producto,1,TO_DATE(fecha, 'MON DD, YYYY, HH:MI:SS AM'),0);
+
+CREATE OR REPLACE PROCEDURE
+actualiza_creditos(correo IN VARCHAR,creditosAModificar IN DECIMAL)IS
+    creditos_actuales DECIMAL;
+BEGIN
+    SELECT creditos INTO creditos_actuales FROM USUARIO WHERE correo_electronico = correo;
+    UPDATE USUARIO SET creditos=creditos_actuales+creditosAModificar WHERE correo_electronico = correo;
+END actualiza_creditos;
+
+BEGIN
+    actualiza_creditos('ferjo',-1);
+END;
+COMMIT;
+SELECT creditos FROM USUARIO WHERE correo_electronico = 'ferjo';
 
 CREATE TABLE LIKE_(
     producto REFERENCES PRODUCTO(id_producto),

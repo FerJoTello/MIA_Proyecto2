@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AdminComponent } from './admin/admin.component';
+import { CartComponent } from './client/cart/cart.component';
 import { ClientComponent } from './client/client.component';
 import { IndexComponent } from './client/index/index.component';
 import { MessagesComponent } from './client/messages/messages.component';
@@ -26,6 +27,7 @@ const routes: Routes = [
         children: [
             { path: 'index', component: IndexComponent },
             { path: 'post', component: PostComponent },
+            { path: 'cart', component: CartComponent },
             { path: 'profile', component: ProfileComponent },
             { path: 'messages', component: MessagesComponent },
             {
@@ -37,7 +39,7 @@ const routes: Routes = [
         ]
     },
     { path: 'admin', component: AdminComponent, canActivate: [AuthAdminGuard] },
-    { path: '**', redirectTo: '' }
+    { path: '**', redirectTo: 'client' }
 ];
 
 @NgModule({
