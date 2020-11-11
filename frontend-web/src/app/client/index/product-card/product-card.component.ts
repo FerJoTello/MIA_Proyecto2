@@ -34,7 +34,7 @@ export class ProductCardComponent implements OnInit {
     }
 
     goToProduct() {
-        this.router.navigate(['product', { id: this.childProduct[0] }], { relativeTo: this.route.parent });
+        this.router.navigate(['product', { id: this.childProduct.ID_PRODUCTO }], { relativeTo: this.route.parent });
     }
     pipe = new DatePipe('en-US'); // Use your own locale
     addToCart() {

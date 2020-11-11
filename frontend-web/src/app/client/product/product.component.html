@@ -15,7 +15,7 @@
                     <div class="card">
                         <div class="card-body" style="text-align: left;">
                             <img src="..." alt="user image" class="img-thumbnail">
-                            Nombre del bro
+                            Nombre del usuario
                             <button type="button" class="btn btn-outline-info float-right">Contactar</button>
                         </div>
                     </div>
@@ -37,7 +37,7 @@
                     <p class="card-text">{{product[4]}}</p>
                 </div>
                 <div class="card-footer">
-                    <button type="button" class="btn btn-info">Añadir al carrito</button>
+                    <button type="button" [class]="clase" (click)="addToCart()">{{texto}}</button>
                 </div>
             </div>
             Palabras Clave:
